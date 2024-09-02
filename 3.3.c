@@ -36,7 +36,7 @@ void FromLast(int m) {
 }
 
 int main() {
-printf("ANGAD SAHA, 2330010\n");
+printf("Rayan Qamar 2330039\n");
     struct Node* head = NULL;
     int numNodes;
     printf("Enter the number of nodes in the linked list: ");
