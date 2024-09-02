@@ -1,56 +1,54 @@
+//display contents in reverse order in a linked lists
+
 #include <stdio.h>
 #include <stdlib.h>
-
 struct Node {
     int data;
     struct Node* next;
-}; 
-struct   Node* head=NULL;
-void insertNode(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = data;
-    newNode->next = NULL;
-    if (head == NULL) {
-        head = newNode;
-    } else {
-        struct Node* temp = head;
-        while (temp->next != NULL) {
-            temp = temp->next;
+};
+void append(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* last = *head_ref;
+
+    new_node->data = new_data;
+    new_node->next = NULL;
+
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+
+    while (last->next != NULL)
+        last = last->next;
+
+    last->next = new_node;
+}
+void print_mth_from_last(struct Node* head, int m) {
+    struct Node *first = head, *second = head;
+ for (int i = 0; i < m; i++) {
+        if (first == NULL) {
+            printf("The list has less than %d nodes.\n", m);
+            return;
         }
-        temp->next = newNode;
+        first = first->next;
     }
+    while (first != NULL) {
+        first = first->next;
+        second = second->next;
+    }
+    if (second != NULL)
+        printf("The %dth node from the last is: %d\n", m, second->data);
 }
-
-void FromLast(int m) {
-    int length = 0;
-    struct Node* temp = head;
-    while (temp != NULL) {
-        length++;
-        temp = temp->next;
-    }
-    temp = head;
-    for (int i = 0; i < length - m; i++) {
-        temp = temp->next;
-    }
-    printf("The %dth node from the last is: %d\n", m, temp->data);
-}
-
 int main() {
-printf("Rayan Qamar 2330039\n");
     struct Node* head = NULL;
-    int numNodes;
-    printf("Enter the number of nodes in the linked list: ");
-    scanf("%d", &numNodes);
-    for (int i = 0; i < numNodes; i++) {
-        int data;
-        printf("Enter data for node %d: ", i + 1);
-        scanf("%d", &data);
-        insertNode(data);
-    }
-    int m;
-    printf("Enter the value of m: ");
-    scanf("%d", &m);
-    FromLast(m);
+append(&head, 1);
+    append(&head, 2);
+    append(&head, 3);
+    append(&head, 4);
+    append(&head, 5);
+
+    int m = 2; 
+    print_mth_from_last(head, m);
 
     return 0;
 }
